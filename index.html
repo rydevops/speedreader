@@ -22,6 +22,10 @@
 
 <main id="input-view" class="view">
   <h1>Speed Reader</h1>
+  <label for="epub">Open an EPUB file (optional)</label>
+  <input id="epub" type="file" accept=".epub,application/epub+zip">
+  <select id="chapters" hidden aria-label="Chapter"></select>
+  <div id="epub-msg" role="status"></div>
   <label for="text">Paste your text</label>
   <textarea id="text" placeholder="Paste or type the text you want to read…"></textarea>
   <label for="wpm">Words per minute: <output id="wpm-out">300</output></label>
@@ -45,6 +49,7 @@
   </div>
   <button id="main-btn" class="primary">Start</button>
 </main>
+<script src="epub.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
