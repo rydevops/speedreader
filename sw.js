@@ -1,11 +1,11 @@
 // Bump VERSION on every release so browsers detect a new service worker.
-const VERSION = 'v2';
+const VERSION = 'v3';
 const CACHE = 'speedreader-' + VERSION;
 const ASSETS = ['./', 'index.html', 'style.css', 'app.js', 'epub.js', 'manifest.webmanifest',
   'icons/icon.svg', 'icons/icon-192.png', 'icons/icon-512.png'];
 
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)));
+  e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS.map(u => new Request(u, { cache: 'reload' })))));
 });
 self.addEventListener('activate', e => {
   e.waitUntil(caches.keys()
@@ -17,5 +17,14 @@ self.addEventListener('message', e => {
 });
 self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
-  e.respondWith(caches.match(e.request).then(r => r || fetch(e.request)));
+  // Network first so users always get the latest files when online; cache when offline.
+  e.respondWith(fetch(e.request, { cache: 'no-cache' })
+    .then(res => {
+      if (res.ok && new URL(e.request.url).origin === location.origin) {
+        const copy = res.clone();
+        caches.open(CACHE).then(c => c.put(e.request, copy));
+      }
+      return res;
+    })
+    .catch(() => caches.match(e.request, { ignoreSearch: true })));
 });
