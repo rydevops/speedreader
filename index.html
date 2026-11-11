@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Speed Reader</title>
+<meta name="theme-color" content="#000000">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="update-banner" hidden>
+  <span>A new version is available.</span>
+  <button id="update-yes">Update</button>
+  <button id="update-no" class="secondary">Later</button>
+</div>
+
+<main id="input-view" class="view">
+  <h1>Speed Reader</h1>
+  <label for="text">Paste your text</label>
+  <textarea id="text" placeholder="Paste or type the text you want to read…"></textarea>
+  <label for="wpm">Words per minute: <output id="wpm-out">300</output></label>
+  <input id="wpm" type="range" min="50" max="1500" step="10" value="300">
+  <button id="submit" class="primary">Submit</button>
+</main>
+
+<main id="reader-view" class="view" hidden>
+  <div class="stage">
+    <div class="line"></div>
+    <div id="word" aria-live="off"><span class="l"></span><span class="m"></span><span class="r"></span></div>
+    <div class="line"></div>
+  </div>
+  <div id="progress"><div id="bar"></div></div>
+  <div id="status" aria-live="polite"></div>
+  <div id="options" hidden>
+    <div class="group"><button id="back10">⏪ Back 10 words</button></div>
+    <div class="group"><span>Font</span><button id="font-down" aria-label="Decrease font size">A−</button><button id="font-up" aria-label="Increase font size">A+</button></div>
+    <div class="group"><span>Speed <b id="wpm-label"></b> wpm</span><button id="wpm-down" aria-label="Slower">−</button><button id="wpm-up" aria-label="Faster">+</button></div>
+    <div class="group"><button id="back-input">Edit text</button></div>
+  </div>
+  <button id="main-btn" class="primary">Start</button>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
