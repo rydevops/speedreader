@@ -100,6 +100,30 @@
     if (e.key === ' ') { e.preventDefault(); mainBtn.click(); }
   });
 
+  // ---- EPUB ----
+  const epubEl = $('epub'), chSel = $('chapters'), epubMsg = $('epub-msg');
+  let book = null;
+  epubEl.onchange = async () => {
+    const f = epubEl.files[0];
+    if (!f) return;
+    chSel.hidden = true; epubMsg.textContent = 'Opening…';
+    try {
+      book = await openEpub(f);
+      chSel.innerHTML = '<option value="">Select a chapter…</option>';
+      book.chapters.forEach((c, i) => chSel.add(new Option(c.title || 'Section ' + (i + 1), i)));
+      chSel.hidden = false;
+      epubMsg.textContent = book.title + ' — ' + book.chapters.length + ' chapters';
+    } catch (e) { book = null; epubMsg.textContent = 'Could not open EPUB: ' + e.message; }
+  };
+  chSel.onchange = async () => {
+    if (chSel.value === '' || !book) return;
+    epubMsg.textContent = 'Loading chapter…';
+    try {
+      textEl.value = await book.getText(book.chapters[+chSel.value]);
+      epubMsg.textContent = textEl.value.split(/\s+/).filter(Boolean).length + ' words loaded';
+    } catch (e) { epubMsg.textContent = 'Could not read chapter: ' + e.message; }
+  };
+
   applyFont();
 
   // ---- PWA: service worker + update prompt on every open ----
