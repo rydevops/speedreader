@@ -103,9 +103,11 @@
   // ---- EPUB ----
   const epubEl = $('epub'), chSel = $('chapters'), epubMsg = $('epub-msg');
   let book = null;
+  $('epub-btn').onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); epubEl.click(); } };
   epubEl.onchange = async () => {
     const f = epubEl.files[0];
     if (!f) return;
+    epubEl.value = '';
     chSel.hidden = true; epubMsg.textContent = 'Opening…';
     try {
       book = await openEpub(f);
@@ -138,7 +140,7 @@
     navigator.serviceWorker.addEventListener('controllerchange', () => {
       if (!wantUpdate || reloading) return; reloading = true; location.reload();
     });
-    navigator.serviceWorker.register('sw.js').then(reg => {
+    navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).then(reg => {
       const hadController = !!navigator.serviceWorker.controller;
       if (reg.waiting && hadController) promptUpdate(reg);
       reg.addEventListener('updatefound', () => {

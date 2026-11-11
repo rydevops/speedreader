@@ -22,8 +22,8 @@
 
 <main id="input-view" class="view">
   <h1>Speed Reader</h1>
-  <label for="epub">Open an EPUB file (optional)</label>
-  <input id="epub" type="file" accept=".epub,application/epub+zip">
+  <label for="epub" id="epub-btn" role="button" tabindex="0">📖 Open EPUB book</label>
+  <input id="epub" type="file" class="visually-hidden">
   <select id="chapters" hidden aria-label="Chapter"></select>
   <div id="epub-msg" role="status"></div>
   <label for="text">Paste your text</label>
