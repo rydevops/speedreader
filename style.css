@@ -31,3 +31,6 @@ button.secondary{background:transparent}
 #epub-btn{display:flex;align-items:center;justify-content:center;min-height:44px;margin:4px 0 8px;padding:10px 16px;border:1px solid #888;border-radius:8px;background:#222;color:#fff;font-weight:600;cursor:pointer}
 #epub-btn:active{background:#444}
 .visually-hidden{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;pointer-events:none}
+.label-row{display:flex;align-items:flex-end;justify-content:space-between}
+.label-row label{margin-bottom:6px}
+button.small{min-height:36px;padding:4px 14px;margin-bottom:4px}

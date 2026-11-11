@@ -100,6 +100,8 @@
     if (e.key === ' ') { e.preventDefault(); mainBtn.click(); }
   });
 
+  $('clear').onclick = () => { textEl.value = ''; save(); textEl.focus(); };
+
   // ---- EPUB ----
   const epubEl = $('epub'), chSel = $('chapters'), epubMsg = $('epub-msg');
   let book = null;

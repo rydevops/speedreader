@@ -1,5 +1,5 @@
 // Bump VERSION on every release so browsers detect a new service worker.
-const VERSION = 'v3';
+const VERSION = 'v4';
 const CACHE = 'speedreader-' + VERSION;
 const ASSETS = ['./', 'index.html', 'style.css', 'app.js', 'epub.js', 'manifest.webmanifest',
   'icons/icon.svg', 'icons/icon-192.png', 'icons/icon-512.png'];

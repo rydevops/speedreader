@@ -26,7 +26,7 @@
   <input id="epub" type="file" class="visually-hidden">
   <select id="chapters" hidden aria-label="Chapter"></select>
   <div id="epub-msg" role="status"></div>
-  <label for="text">Paste your text</label>
+  <div class="label-row"><label for="text">Paste your text</label><button id="clear" type="button" class="secondary small">Clear</button></div>
   <textarea id="text" placeholder="Paste or type the text you want to read…"></textarea>
   <label for="wpm">Words per minute: <output id="wpm-out">300</output></label>
   <input id="wpm" type="range" min="50" max="1500" step="10" value="300">
